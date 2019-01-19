@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileUtils {
+    private static final Logger logger = new Logger();
     /*public static String parseFile(File file) {
         if (file == null) {
             System.err.println("File is NULL, specify existing file!");
@@ -42,6 +43,22 @@ public class FileUtils {
 
             }
         }
+        return "";
+    }
+
+    private static boolean isFileCorrectAndNotEmpty(File file) {
+        boolean isFileCorrect = false;
+        if (file != null) {
+            if (file.exists()) {
+                if (file.isFile()) {
+                    if (file.length() != 0) {
+                        logger.info("File is correct and it is not empty.");
+                        isFileCorrect = true;
+                    }
+                }
+            }
+        }
+        return isFileCorrect;
     }
 
     public static void writeTableIntoFile(String cipher, File file) {
