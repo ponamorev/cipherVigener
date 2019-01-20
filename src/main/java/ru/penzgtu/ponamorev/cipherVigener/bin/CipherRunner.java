@@ -13,37 +13,23 @@ public class CipherRunner {
     private static String yn;
 
     public static void main(String[] args) {
-        System.out.println("=============================================================================================================");
-        System.out.println("=== Welcome to the application which can encode/decode your text by cipher of Caesar or cipher of Vigener ===");
-        System.out.println("=============================================================================================================\n");
-
-        System.out.println("=============================================================================================================");
-        System.out.println("===     For using this application you can use your keyboard or file with text for decoding/encoding      ===");
-        System.out.println("=============================================================================================================\n");
+        MenuInformationPrinter.printIntroduction();
 
         do {
-            System.out.println("=============================================================================================================");
-            System.out.println("===     For starting encode/decode enter word \'START\' (not key-sensitive) and press ENTER                 ===");
-            System.out.println("===     For exiting from application enter word \'EXIT\' (not key-sensitive) and press ENTER                ===");
-            System.out.println("===     Or just close the window :)                                                                       ===");
-            System.out.println("=============================================================================================================\n");
+            MenuInformationPrinter.printEnterToMenu();
 
             System.out.print("Enter here: >>> ");
             input = scanner.nextLine();
 
             if (input.toLowerCase().equals("start")) {
                 startApp();
-                System.out.println("\n=============================================================================================================");
-                System.out.println("===     You finished. Would you make something else again? (Y/N)                                          ===");
-                System.out.println("=============================================================================================================\n");
+                MenuInformationPrinter.printFinishAsking();
                 yn = scanner.nextLine();
                 if (yn.toLowerCase().equals("n")) {
                     break;
                 }
             } else if (!input.toLowerCase().equals("exit")) {
-                System.out.println("\n=============================================================================================================");
-                System.out.println("===     You entered something wrong. Would you try again? (Y/N)                                           ===");
-                System.out.println("=============================================================================================================\n");
+                MenuInformationPrinter.printWrongInputFromMenu();
                 System.out.print(" >>> ");
                 yn = scanner.nextLine();
                 if (yn.toLowerCase().equals("n")) {
@@ -52,15 +38,13 @@ public class CipherRunner {
             }
         } while (!input.toLowerCase().equals("exit"));
 
-        System.out.println("\n=============================================================================================================");
-        System.out.println("===     Thank you for using our application! Best wishes. <<<                                             ===");
-        System.out.println("=============================================================================================================");
+        MenuInformationPrinter.printParting();
     }
 
     private static void startApp() {
         boolean finishWork = false;
 
-        printMenu();
+        MenuInformationPrinter.printMenu();
 
         do {
             System.out.print("Enter here: >>> ");
@@ -93,9 +77,7 @@ public class CipherRunner {
                         CipherVigenerDecode.decodeTextFromFile();
                         break;
                     default:
-                        System.out.println("=============================================================================================================");
-                        System.out.println("===     You enter wrong number. Would you like to try again? (Y/N)                                        ===");
-                        System.out.println("=============================================================================================================\n");
+                        MenuInformationPrinter.printWrongNumberSelectingCipher();
                         System.out.print(" >>> ");
                         yn = scanner.nextLine();
                         if (yn.toLowerCase().equals("y"))
@@ -106,36 +88,16 @@ public class CipherRunner {
                 System.err.println("There was an error during parsing number from string " + input);
                 System.err.println(nfEx.getMessage());
             }
-            System.out.println("=============================================================================================================");
-            System.out.println("===     Would you like to exit? (Y/N)                                                                     ===");
-            System.out.println("=============================================================================================================\n");
+            MenuInformationPrinter.printExitQuestion();
             System.out.print(" >>> ");
             yn = scanner.nextLine();
             if (yn.toLowerCase().equals("y")) finishWork = true;
             if (!finishWork) {
-                System.out.println("=============================================================================================================");
-                System.out.println("===     Print menu again? (Y/N)                                                                           ===");
-                System.out.println("=============================================================================================================\n");
+                MenuInformationPrinter.printDisplayMenuAgain();
                 System.out.print(" >>> ");
                 yn = scanner.nextLine();
-                if (yn.toLowerCase().equals("y")) printMenu();
+                if (yn.toLowerCase().equals("y")) MenuInformationPrinter.printMenu();
             }
         } while (finishWork);
-    }
-
-    private static void printMenu() {
-        System.out.println("=============================================================================================================");
-        System.out.println("===     START MENU                                                                                        ===");
-        System.out.println("=============================================================================================================");
-        System.out.println("===     Enter a number accord list below:                                                                 ===");
-        System.out.println("===     1. Encode text from console by Caesar cipher                                                      ===");
-        System.out.println("===     2. Encode text from file by Caesar cipher                                                         ===");
-        System.out.println("===     3. Decode text from console by Caesar cipher                                                      ===");
-        System.out.println("===     4. Decode text from file by Caesar cipher                                                         ===");
-        System.out.println("===     5. Encode text from console by Vigener cipher                                                     ===");
-        System.out.println("===     6. Encode text from file by Vigener cipher                                                        ===");
-        System.out.println("===     7. Decode text from console by Vigener cipher                                                     ===");
-        System.out.println("===     8. Decode text from file by Vigener cipher                                                        ===");
-        System.out.println("=============================================================================================================\n");
     }
 }

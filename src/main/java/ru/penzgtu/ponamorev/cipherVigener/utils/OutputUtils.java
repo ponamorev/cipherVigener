@@ -5,14 +5,14 @@ import org.apache.commons.lang.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class OutputUtils {
+abstract class OutputUtils {
     private static final Logger logger = new Logger();
-    protected static final String INITIAL_TEXT_NAME = "INITIAL TEXT";
-    protected static final String CIPHERED_TEXT_NAME = "CIPHERED TEXT";
-    protected static final String DECODED_TEXT_NAME = "DECODE TEXT";
+    private static final String INITIAL_TEXT_NAME = "INITIAL TEXT";
+    private static final String CIPHERED_TEXT_NAME = "CIPHERED TEXT";
+    private static final String DECODED_TEXT_NAME = "DECODE TEXT";
 
-    protected static int checkIfBothListsCorrectAndGetMaxLineLength(List<String> firstList,
-                                                                  List<String> secondList) {
+    static int checkIfBothListsCorrectAndGetMaxLineLength(List<String> firstList,
+                                                          List<String> secondList) {
         int maxStringLength = 0;
 
         if (firstList != null && secondList != null) {
@@ -41,9 +41,9 @@ public abstract class OutputUtils {
         return maxStringLength;
     }
 
-    protected static List<String> prepareListOfStringsForWriting(List<String> initialText,
-                                                               List<String> resultText,
-                                                               boolean encoded) {
+    static List<String> prepareListOfStringsForWriting(List<String> initialText,
+                                                       List<String> resultText,
+                                                       boolean encoded) {
         List<String> result = new ArrayList<>();
         for (int i = 0; i < initialText.size(); i++) {
             String name = "Line " + (i + 1);

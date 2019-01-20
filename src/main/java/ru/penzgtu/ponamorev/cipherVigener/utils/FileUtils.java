@@ -3,6 +3,7 @@ package ru.penzgtu.ponamorev.cipherVigener.utils;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FileUtils extends OutputUtils {
@@ -22,7 +23,9 @@ public class FileUtils extends OutputUtils {
                 ErrorHandling.printErrorDescriptionToConsole(ex, "There was an I/O error, during while reading from file.");
             }
         }
-        // TODO: note that this method can return null list of some another list with strings - it should be handled
+        if (linesFromFile == null) {
+            linesFromFile = Collections.emptyList();
+        }
         return linesFromFile;
     }
 
