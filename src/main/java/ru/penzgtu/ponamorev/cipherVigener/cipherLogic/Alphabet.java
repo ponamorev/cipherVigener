@@ -52,7 +52,17 @@ public enum Alphabet {
     Y_UP(48, 'Y'),
     Y_LOW(49, 'y'),
     Z_UP(50, 'Z'),
-    Z_LOW(51, 'z');
+    Z_LOW(51, 'z'),
+    ZERO(52, '0'),
+    ONE(53, '1'),
+    TWO(54, '2'),
+    THREE(55, '3'),
+    FOUR(56, '4'),
+    FIVE(57, '5'),
+    SIX(58, '6'),
+    SEVEN(59, '7'),
+    EIGTH(60, '8'),
+    NINE(61, '9');
 
     private final int index;
     private final char value;

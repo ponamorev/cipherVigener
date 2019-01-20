@@ -1,4 +1,9 @@
-package ru.penzgtu.ponamorev.cipherVigener.cipherLogic;
+package ru.penzgtu.ponamorev.cipherVigener.bin;
+
+import ru.penzgtu.ponamorev.cipherVigener.cipherLogic.CipherCaesarDecode;
+import ru.penzgtu.ponamorev.cipherVigener.cipherLogic.CipherCaesarEncode;
+import ru.penzgtu.ponamorev.cipherVigener.cipherLogic.CipherVigenerDecode;
+import ru.penzgtu.ponamorev.cipherVigener.cipherLogic.CipherVigenerEncode;
 
 import java.util.Scanner;
 

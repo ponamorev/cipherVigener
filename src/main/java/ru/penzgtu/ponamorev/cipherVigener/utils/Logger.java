@@ -1,16 +1,10 @@
-package ru.penzgtu.ponamorev.cipherVigener.cipherLogic;
+package ru.penzgtu.ponamorev.cipherVigener.utils;
 
 import java.util.Date;
 
 public final class Logger {
     public void info(String message, String... listOfParameters) {
         printPrefix("INFO");
-        message = replaceParameters(message, listOfParameters);
-        System.out.println(message);
-    }
-
-    public void warn(String message, String... listOfParameters) {
-        printPrefix("WARN");
         message = replaceParameters(message, listOfParameters);
         System.out.println(message);
     }
