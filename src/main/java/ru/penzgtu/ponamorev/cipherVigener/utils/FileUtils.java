@@ -1,22 +1,18 @@
 package ru.penzgtu.ponamorev.cipherVigener.utils;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileUtils {
+public class FileUtils extends OutputUtils {
     private static final Logger logger = new Logger();
-    private static final String INITIAL_TEXT_NAME = "INITIAL TEXT";
-    private static final String CIPHERED_TEXT_NAME = "CIPHERED TEXT";
 
     public static List<String> readFromFile(File file) {
         List<String> linesFromFile = null;
         if (isFileCorrectAndNotEmpty(file)) {
             try (FileReader fileReader = new FileReader(file);
-                    BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+                 BufferedReader bufferedReader = new BufferedReader(fileReader)) {
                 linesFromFile = new ArrayList<>();
                 String oneLine;
                 while ((oneLine = bufferedReader.readLine()) != null) {
@@ -30,42 +26,22 @@ public class FileUtils {
         return linesFromFile;
     }
 
-    public static boolean writeTableIntoFile(List<String> initialText,
-                                          List<String> cipheredText,
-                                          File file,
-                                          boolean createIfNotExist) {
+    public static boolean writeResultTableIntoFile(List<String> initialText,
+                                                           List<String> resultText,
+                                                           File file,
+                                                           boolean createIfNotExist,
+                                                           boolean isTextEncoded) {
         List<String> resultListForTable;
-        int maxStringLength = 0;
+        int maxStringLength = checkIfBothListsCorrectAndGetMaxLineLength(initialText, resultText);
 
-        if (initialText != null && cipheredText != null) {
-            if (initialText.size() == cipheredText.size() && initialText.size() != 0) {
-                for (int i = 0; i < initialText.size(); i++) {
-                    int initTextLineSize = initialText.get(i).length();
-                    int ciphTextLineSize = cipheredText.get(i).length();
-                    if (initTextLineSize == ciphTextLineSize && initTextLineSize > maxStringLength) {
-                        maxStringLength = initTextLineSize;
-                    } else if (initTextLineSize != ciphTextLineSize) {
-                        logger.error("You got ciphered text with another size, which is not equal with initial text size");
-                        logger.error("If this error will be fallen - write developer to e-mail: penzayk@mail.ru");
-                        logger.error("And describe your error as explicit as you can");
-                        return false;
-                    }
-                }
-            } else {
-                logger.error("Probably, some string were not ciphered or you specified empty string for ciphering.");
-                logger.error("Try again, please.");
-                logger.error("If this error will be fallen - write developer to e-mail: penzayk@mail.ru");
-                logger.error("And describe your error as explicit as you can");
-                return false;
-            }
-        } else {
-            logger.error("You specified empty of not existing strings for ciphering!");
+        if (maxStringLength == 0) {
+            logger.error("There was some error during checking lists with initial and result texts");
             return false;
         }
 
         if (isFileCorrectAndNotEmpty(file)) {
             // prepare list with strings for writing
-            resultListForTable = prepareListOfStringsForWriting(initialText, cipheredText);
+            resultListForTable = prepareListOfStringsForWriting(initialText, resultText, isTextEncoded);
 
             if (writeToFile(file, resultListForTable)) {
                 logger.info("You can look result in file - {}", file.getAbsolutePath());
@@ -75,7 +51,7 @@ public class FileUtils {
             }
         } else if (file != null && createIfNotExist) {
             // prepare list with strings for writing
-            resultListForTable = prepareListOfStringsForWriting(initialText, cipheredText);
+            resultListForTable = prepareListOfStringsForWriting(initialText, resultText, isTextEncoded);
 
             String[] fileName = file.getName().split(".");
             String extension = fileName[fileName.length - 1];
@@ -135,41 +111,8 @@ public class FileUtils {
         return isFileCorrect;
     }
 
-    private static List<String> prepareListOfStringsForWriting(List<String> initialText,
-                                                               List<String> cipheredText) {
-        List<String> result = new ArrayList<>();
-        for (int i = 0; i < initialText.size(); i++) {
-            String name = "Line " + (i + 1);
-            String edgeLine = StringUtils.repeat("=", initialText.get(i).length() + 23);
-            String spacesLine = String.format("##%s## %s ##", StringUtils.repeat(" ", 15),
-                    StringUtils.repeat(" ", initialText.get(i).length()));
-            String initialTextLine = String.format("## %s  ## %s ##", INITIAL_TEXT_NAME, initialText.get(i));
-            String cipheredTextLine = String.format("## %s ## %s ##", CIPHERED_TEXT_NAME, cipheredText.get(i));
-
-            // add all strings to list and add two empty string for separating
-            result.add(name);
-            result.add(edgeLine);
-            result.add(spacesLine);
-            result.add(initialTextLine);
-            result.add(spacesLine);
-            result.add(edgeLine);
-            result.add(spacesLine);
-            result.add(cipheredTextLine);
-            result.add(spacesLine);
-            result.add(edgeLine);
-            // add two empty strings if there is not last ciphered line of text
-            String emptyString = "";
-            if (i != initialText.size() - 1) {
-                result.add(emptyString);
-                result.add(emptyString);
-            }
-        }
-
-        return result;
-    }
-
     private static boolean writeToFile(File file,
-                                    List<String> resultList) {
+                                       List<String> resultList) {
         boolean isWritingFinishedSuccessfully = false;
         try (FileWriter fileWriter = new FileWriter(file, true)) {
             for (String line : resultList) {
