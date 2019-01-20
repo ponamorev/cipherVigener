@@ -4,7 +4,9 @@ import ru.penzgtu.ponamorev.cipherVigener.cipherLogic.CipherCaesarDecode;
 import ru.penzgtu.ponamorev.cipherVigener.cipherLogic.CipherCaesarEncode;
 import ru.penzgtu.ponamorev.cipherVigener.cipherLogic.CipherVigenerDecode;
 import ru.penzgtu.ponamorev.cipherVigener.cipherLogic.CipherVigenerEncode;
+import ru.penzgtu.ponamorev.cipherVigener.utils.ErrorHandling;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class CipherRunner {
@@ -53,10 +55,17 @@ public class CipherRunner {
             try {
                 switch (Integer.parseInt(input)) {
                     case 1:
-                        CipherCaesarEncode.encodeTextFromConsole();
+                        CipherCaesarEncode.encodeTextFromConsole(scanner);
                         break;
                     case 2:
-                        CipherCaesarEncode.encodeTextFromFile();
+                        MenuInformationPrinter.printChooseFileName(true);
+                        System.out.println("Remember that file should be *.txt");
+                        System.out.print("Enter file name here >>> ");
+                        String fileName = scanner.nextLine();
+                        MenuInformationPrinter.printQuestionAboutCreatingNonExistingFile();
+                        System.out.print("Enter your answer here >>> ");
+                        boolean createFileIfItIsNotExist = scanner.nextLine().toLowerCase().equals("y");
+                        CipherCaesarEncode.encodeTextFromFile(new File(fileName), scanner, createFileIfItIsNotExist);
                         break;
                     case 3:
                         CipherCaesarDecode.decodeTextFromConsole();
@@ -84,9 +93,9 @@ public class CipherRunner {
                             continue;
                         break;
                 }
-            } catch (NumberFormatException nfEx) {
-                System.err.println("There was an error during parsing number from string " + input);
-                System.err.println(nfEx.getMessage());
+            } catch (NumberFormatException ex) {
+                ErrorHandling.printErrorDescriptionToConsole(ex, "There was an error during parsing " +
+                        "number from string " + input);
             }
             MenuInformationPrinter.printExitQuestion();
             System.out.print(" >>> ");

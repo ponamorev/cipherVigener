@@ -61,7 +61,7 @@ public enum Alphabet {
     FIVE(57, '5'),
     SIX(58, '6'),
     SEVEN(59, '7'),
-    EIGTH(60, '8'),
+    EIGHT(60, '8'),
     NINE(61, '9');
 
     private final int index;

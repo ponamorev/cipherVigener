@@ -48,6 +48,24 @@ class MenuInformationPrinter {
         System.out.println("=============================================================================================================\n");
     }
 
+    static void printChooseFileName(boolean isEncode) {
+        String action;
+        if (isEncode) {
+            action = "encoding";
+        } else {
+            action = "decoding";
+        }
+        System.out.println("=============================================================================================================");
+        System.out.println("===     Enter file name with absolute path for " + action + " text from it                                      ===");
+        System.out.println("=============================================================================================================");
+    }
+
+    static void printQuestionAboutCreatingNonExistingFile() {
+        System.out.println("=============================================================================================================");
+        System.out.println("===     Create file is it is not exist? (Y/N)                                                             ===");
+        System.out.println("=============================================================================================================");
+    }
+
     static void printWrongNumberSelectingCipher() {
         System.out.println("=============================================================================================================");
         System.out.println("===     You enter wrong number. Would you like to try again? (Y/N)                                        ===");
