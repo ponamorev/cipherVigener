@@ -40,11 +40,12 @@ abstract class CipherImpl implements ICipher {
                                      String action,
                                      String type,
                                      String outputPlace,
-                                     File file,
+                                     File fileFrom,
+                                     File fileTo,
                                      boolean createIfNotExist) {
-        List<String> initialList = FileUtils.readFromFile(file);
+        List<String> initialList = FileUtils.readFromFile(fileFrom);
         List<String> resultList = new ArrayList<>();
-        String code = null;
+        String code;
 
         // set code word if it is necessary
         if (type.equals("Vigener")) {
@@ -75,7 +76,7 @@ abstract class CipherImpl implements ICipher {
         }
 
         if (outputPlace.equals("file")) {
-            if (FileUtils.writeResultTableIntoFile(initialList, resultList, action, file, createIfNotExist)) {
+            if (FileUtils.writeResultTableIntoFile(initialList, resultList, action, fileTo, createIfNotExist)) {
                 logger.info("File saved successfully.");
             } else {
                 logger.error("File wasn't saved. See log for details.");
