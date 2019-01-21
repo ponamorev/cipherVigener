@@ -1,5 +1,3 @@
-cd ..\..\..\..\..\..\..\..
-
 call mvn clean install
 
 cd target
