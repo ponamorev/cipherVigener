@@ -1,11 +1,18 @@
 package ru.penzgtu.ponamorev.cipherVigener.cipherLogic;
 
-public class VigenerCipher {
-    public static void encodeTextFromConsole() {
+import java.util.Scanner;
 
+public class VigenerCipher extends CipherImpl {
+    @Override
+    public String encode(String initialText,
+                         String code,
+                         Scanner scanner) {
+        return null;
     }
 
-    public static void encodeTextFromFile() {
-
+    @Override
+    public String decode(String initialText,
+                         String code) {
+        return null;
     }
 }

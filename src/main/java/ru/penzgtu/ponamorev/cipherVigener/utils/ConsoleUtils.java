@@ -7,8 +7,16 @@ import java.util.Scanner;
 public class ConsoleUtils extends OutputUtils {
     private static final Logger logger = new Logger();
 
-    public static String readFromConsole(Scanner input) {
-        return input.nextLine();
+    public static String readFromConsole(Scanner input,
+                                         String typeOfCipher) {
+        StringBuilder builder = new StringBuilder();
+        System.out.print("Enter string for encoding/decoding here >>> ");
+        builder.append(input.nextLine());
+        if (typeOfCipher.equals("Vigener")) {
+            System.out.print("Enter code word for encoding/decoding here >>> ");
+            builder.append("|").append(input.nextLine());
+        }
+        return builder.toString();
     }
 
     public static void printToConsole(String initialText,

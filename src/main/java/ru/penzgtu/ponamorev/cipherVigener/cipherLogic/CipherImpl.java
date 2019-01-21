@@ -15,13 +15,16 @@ abstract class CipherImpl implements ICipher {
 
     public void workWithTextFromConsole(Scanner scanner,
                                         String action,
+                                        String type,
                                         String outputPlace,
                                         File file,
                                         boolean createIfNotExist) {
-        String inputString = ConsoleUtils.readFromConsole(scanner);
+        String inputString = ConsoleUtils.readFromConsole(scanner, type);
+        String codeWord = type.equals("Caesar") ? "" : inputString.split("|")[1];
+        inputString = type.equals("Caesar") ? inputString : inputString.split("|")[0];
         String resultString = action.equals("encode")
-                ? encode(inputString, scanner)
-                : decode(inputString);
+                ? encode(inputString, codeWord, scanner)
+                : decode(inputString, codeWord);
 
         List<String> inputStringAsList = Collections.singletonList(inputString);
         List<String> resultStringAsList = Collections.singletonList(resultString);
@@ -38,20 +41,30 @@ abstract class CipherImpl implements ICipher {
 
     public void workWithTextFromFile(Scanner scanner,
                                      String action,
+                                     String type,
                                      String outputPlace,
                                      File file,
                                      boolean createIfNotExist) {
         List<String> initialList = FileUtils.readFromFile(file);
         List<String> resultList = new ArrayList<>();
+        String codeWord = null;
 
+        // set code word if it is necessary
+        if (type.equals("Vigener")) {
+            System.out.print("Enter code word for encoding/decoding here >>> ");
+            codeWord = scanner.nextLine();
+        }
+        if (codeWord == null) {
+            codeWord = "";
+        }
         if (action.equals("encode")) {
             for (String line : initialList) {
-                String resultLine = encode(line, scanner);
+                String resultLine = encode(line, codeWord, scanner);
                 resultList.add(resultLine);
             }
         } else {
             for (String line : initialList) {
-                String resultLine = decode(line);
+                String resultLine = decode(line, codeWord);
                 resultList.add(resultLine);
             }
         }

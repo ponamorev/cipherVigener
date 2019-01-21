@@ -10,13 +10,16 @@ public class CaesarCipher extends CipherImpl {
 
     @Override
     public String encode(String initialText,
+                         String code,
                          Scanner scanner) {
         char[] inputChars = initialText.toCharArray();
         char[] resultChars = new char[inputChars.length];
+        char initialSymbol;
+        char resultSymbol;
 
         for (int i = 0; i < inputChars.length; i++) {
-            char initialSymbol = inputChars[i];
-            char resultSymbol = 0;
+            initialSymbol = inputChars[i];
+            resultSymbol = 0;
             int index = -1;
             for (Alphabet symbol : symbols) {
                 if (symbol.getValue() == initialSymbol) {
@@ -31,16 +34,16 @@ public class CaesarCipher extends CipherImpl {
                     }
                 }
             } else {
-                logger.error("You enter some symbols from another alphabet! This symbol will be " +
+                logger.warn("You enter some symbols from another alphabet! This symbol will be " +
                         "encoded as first element of latin alphabet!");
-                logger.error("It can be follow incorrect decoding!");
+                logger.warn("It can be follow incorrect decoding!");
                 System.out.print("You can exit from this area and try again from menu. Would you like? (Y/N)" +
                         " - Enter here >>> ");
                 String yn = scanner.nextLine();
                 if (yn.toLowerCase().equals("y")) {
                     return null;
                 }
-                logger.info("You choose case with first element. Symbol was replaced on \'a\'.");
+                logger.warn("You choose case with first element. Symbol was replaced on \'a\'.");
                 resultSymbol = 'a';
             }
 
@@ -51,9 +54,38 @@ public class CaesarCipher extends CipherImpl {
     }
 
     @Override
-    public String decode(String initialText) {
+    public String decode(String initialText,
+                         String code) {
         char[] inputChars = initialText.toCharArray();
         char[] resultChars = new char[inputChars.length];
-        return "";
+        char initialSymbol;
+        char resultSymbol;
+
+        for (int i = 0; i < inputChars.length; i++) {
+            initialSymbol = inputChars[i];
+            resultSymbol = 0;
+            int index = -1;
+            for (Alphabet symbol : symbols) {
+                if (symbol.getValue() == initialSymbol) {
+                    index = symbol.getIndex();
+                }
+            }
+            if (index != -1) {
+                index -= 3;
+                for (Alphabet symbol : symbols) {
+                    if (index == symbol.getIndex()) {
+                        resultSymbol = symbol.getValue();
+                    }
+                }
+            } else {
+                logger.warn("Your ciphered text has unsupported symbol - {}", String.valueOf(initialSymbol));
+                logger.warn("It will be decoded as the first symbol of alphabet - \'a\'");
+                resultSymbol = 'a';
+            }
+
+            resultChars[i] = resultSymbol;
+        }
+
+        return String.valueOf(resultChars);
     }
 }
