@@ -1,6 +1,7 @@
 package ru.penzgtu.ponamorev.cipherVigener.utils;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,6 +16,17 @@ public class ConsoleUtils extends OutputUtils {
         if (typeOfCipher.equals("Vigener")) {
             System.out.print("Enter code word for encoding/decoding here >>> ");
             builder.append("|").append(input.nextLine());
+        } else {
+            System.out.print("Enter key (number) for encoding/decoding by Caesar cipher >>> ");
+            int key;
+            try {
+                key = input.nextInt();
+            } catch (InputMismatchException ex) {
+                logger.warn("You entered not a number!");
+                logger.warn("Key was set by default!");
+                key = 1;
+            }
+            builder.append("|").append(key);
         }
         return builder.toString();
     }

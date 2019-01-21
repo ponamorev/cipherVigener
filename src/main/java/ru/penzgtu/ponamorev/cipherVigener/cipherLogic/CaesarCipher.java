@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class CaesarCipher extends CipherImpl {
     private static final Logger logger = new Logger();
     private final Alphabet[] symbols = Alphabet.values();
+    private final int alphabetCapacity = symbols.length;
 
     @Override
     public String encode(String initialText,
@@ -16,6 +17,7 @@ public class CaesarCipher extends CipherImpl {
         char[] resultChars = new char[inputChars.length];
         char initialSymbol;
         char resultSymbol;
+        int key = Integer.parseInt(code);
 
         for (int i = 0; i < inputChars.length; i++) {
             initialSymbol = inputChars[i];
@@ -27,7 +29,10 @@ public class CaesarCipher extends CipherImpl {
                 }
             }
             if (index != -1) {
-                index += 3;
+                index += key;
+                if (index > alphabetCapacity) {
+                    index -= alphabetCapacity;
+                }
                 for (Alphabet symbol : symbols) {
                     if (index == symbol.getIndex()) {
                         resultSymbol = symbol.getValue();
@@ -60,18 +65,22 @@ public class CaesarCipher extends CipherImpl {
         char[] resultChars = new char[inputChars.length];
         char initialSymbol;
         char resultSymbol;
+        int key = Integer.parseInt(code);
 
         for (int i = 0; i < inputChars.length; i++) {
             initialSymbol = inputChars[i];
             resultSymbol = 0;
-            int index = -1;
+            int index = -1000;
             for (Alphabet symbol : symbols) {
                 if (symbol.getValue() == initialSymbol) {
                     index = symbol.getIndex();
                 }
             }
-            if (index != -1) {
-                index -= 3;
+            if (index != -1000) {
+                index -= key;
+                if (index < 0) {
+                    index += alphabetCapacity;
+                }
                 for (Alphabet symbol : symbols) {
                     if (index == symbol.getIndex()) {
                         resultSymbol = symbol.getValue();

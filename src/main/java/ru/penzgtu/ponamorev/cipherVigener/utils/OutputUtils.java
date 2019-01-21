@@ -48,30 +48,32 @@ abstract class OutputUtils {
         for (int i = 0; i < initialText.size(); i++) {
             String name = "Line " + (i + 1);
             String edgeLine = StringUtils.repeat("=", initialText.get(i).length() + 23);
-            String spacesLine = String.format("##%s## %s ##", StringUtils.repeat(" ", 15),
-                    StringUtils.repeat(" ", initialText.get(i).length()));
             String initialTextLine;
             String resultTextLine;
+
+            StringBuilder builder = new StringBuilder();
+            // change lines to necessary format
+            for (char s : initialText.get(i).toCharArray()) builder.append("|").append(s);
+            String formattedInitialTextLine = builder.append("|").toString();
+            builder = new StringBuilder();
+            for (char s : resultText.get(i).toCharArray()) builder.append("|").append(s);
+            String formattedResultTextLine = builder.append("|").toString();
+
             if (action.equals("encode")) {
-                initialTextLine = String.format("## %s  ## %s ##", INITIAL_TEXT_NAME, initialText.get(i));
-                resultTextLine = String.format("## %s ## %s ##", CIPHERED_TEXT_NAME, resultText.get(i));
+                initialTextLine = String.format("## %s  ## %s ##", INITIAL_TEXT_NAME, formattedInitialTextLine);
+                resultTextLine = String.format("## %s ## %s ##", CIPHERED_TEXT_NAME, formattedResultTextLine);
             } else {
-                initialTextLine = String.format("## %s ## %s ##", CIPHERED_TEXT_NAME, initialText.get(i));
-                resultTextLine = String.format("## %s  ## %s ##", DECODED_TEXT_NAME, resultText.get(i));
+                initialTextLine = String.format("## %s ## %s ##", CIPHERED_TEXT_NAME, formattedInitialTextLine);
+                resultTextLine = String.format("## %s  ## %s ##", DECODED_TEXT_NAME, formattedResultTextLine);
             }
 
-            // add all strings to list and add two empty string for separating
+            // add all strings to list and add empty string for separating
             result.add(name);
             result.add(edgeLine);
-            result.add(spacesLine);
             result.add(initialTextLine);
-            result.add(spacesLine);
             result.add(edgeLine);
-            result.add(spacesLine);
             result.add(resultTextLine);
-            result.add(spacesLine);
             result.add(edgeLine);
-            // add two empty strings if there is not last ciphered line of text
             String emptyString = "";
             result.add(emptyString);
             result.add(emptyString);

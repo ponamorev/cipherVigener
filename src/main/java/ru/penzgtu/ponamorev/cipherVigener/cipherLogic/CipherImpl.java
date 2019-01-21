@@ -5,10 +5,7 @@ import ru.penzgtu.ponamorev.cipherVigener.utils.FileUtils;
 import ru.penzgtu.ponamorev.cipherVigener.utils.Logger;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 abstract class CipherImpl implements ICipher {
     private static final Logger logger = new Logger();
@@ -19,12 +16,12 @@ abstract class CipherImpl implements ICipher {
                                         String outputPlace,
                                         File file,
                                         boolean createIfNotExist) {
-        String inputString = ConsoleUtils.readFromConsole(scanner, type);
-        String codeWord = type.equals("Caesar") ? "" : inputString.split("|")[1];
-        inputString = type.equals("Caesar") ? inputString : inputString.split("|")[0];
+        String[] inputStringAndCode = ConsoleUtils.readFromConsole(scanner, type).split("|");
+        String inputString = inputStringAndCode[0];
+        String code = inputStringAndCode[1];
         String resultString = action.equals("encode")
-                ? encode(inputString, codeWord, scanner)
-                : decode(inputString, codeWord);
+                ? encode(inputString, code, scanner)
+                : decode(inputString, code);
 
         List<String> inputStringAsList = Collections.singletonList(inputString);
         List<String> resultStringAsList = Collections.singletonList(resultString);
@@ -47,24 +44,32 @@ abstract class CipherImpl implements ICipher {
                                      boolean createIfNotExist) {
         List<String> initialList = FileUtils.readFromFile(file);
         List<String> resultList = new ArrayList<>();
-        String codeWord = null;
+        String code = null;
 
         // set code word if it is necessary
         if (type.equals("Vigener")) {
             System.out.print("Enter code word for encoding/decoding here >>> ");
-            codeWord = scanner.nextLine();
-        }
-        if (codeWord == null) {
-            codeWord = "";
+            code = scanner.nextLine();
+        } else {
+            System.out.print("Enter key (number) for encoding/decoding Caesar cipher >>> ");
+            int key;
+            try {
+                key = scanner.nextInt();
+            } catch (InputMismatchException ex) {
+                logger.warn("You entered not a number!");
+                logger.warn("Key was set by default!");
+                key = 1;
+            }
+            code = String.valueOf(key);
         }
         if (action.equals("encode")) {
             for (String line : initialList) {
-                String resultLine = encode(line, codeWord, scanner);
+                String resultLine = encode(line, code, scanner);
                 resultList.add(resultLine);
             }
         } else {
             for (String line : initialList) {
-                String resultLine = decode(line, codeWord);
+                String resultLine = decode(line, code);
                 resultList.add(resultLine);
             }
         }
