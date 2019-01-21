@@ -13,7 +13,7 @@ public class ConsoleUtils extends OutputUtils {
 
     public static void printToConsole(String initialText,
                                       String resultText,
-                                      boolean isTextEncoded) {
+                                      String action) {
         List<String> resultListForTable;
         List<String> initialTextList = new ArrayList<>();
         List<String> resultTextList = new ArrayList<>();
@@ -29,7 +29,7 @@ public class ConsoleUtils extends OutputUtils {
             return;
         }
 
-        resultListForTable = prepareListOfStringsForWriting(initialTextList, resultTextList, isTextEncoded);
+        resultListForTable = prepareListOfStringsForWriting(initialTextList, resultTextList, action);
         logger.info("Result:");
         for (String line : resultListForTable) {
             System.out.println(line);

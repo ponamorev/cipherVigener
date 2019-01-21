@@ -1,6 +1,6 @@
 package ru.penzgtu.ponamorev.cipherVigener.cipherLogic;
 
-public class CipherVigenerEncode {
+public class VigenerCipher {
     public static void encodeTextFromConsole() {
 
     }

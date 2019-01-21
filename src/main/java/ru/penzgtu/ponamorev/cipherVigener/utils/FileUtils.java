@@ -30,10 +30,10 @@ public class FileUtils extends OutputUtils {
     }
 
     public static boolean writeResultTableIntoFile(List<String> initialText,
-                                                           List<String> resultText,
-                                                           File file,
-                                                           boolean createIfNotExist,
-                                                           boolean isTextEncoded) {
+                                                   List<String> resultText,
+                                                   String action,
+                                                   File file,
+                                                   boolean createIfNotExist) {
         List<String> resultListForTable;
         int maxStringLength = checkIfBothListsCorrectAndGetMaxLineLength(initialText, resultText);
 
@@ -44,7 +44,7 @@ public class FileUtils extends OutputUtils {
 
         if (isFileCorrectAndNotEmpty(file)) {
             // prepare list with strings for writing
-            resultListForTable = prepareListOfStringsForWriting(initialText, resultText, isTextEncoded);
+            resultListForTable = prepareListOfStringsForWriting(initialText, resultText, action);
 
             if (writeToFile(file, resultListForTable)) {
                 logger.info("You can look result in file - {}", file.getAbsolutePath());
@@ -54,7 +54,7 @@ public class FileUtils extends OutputUtils {
             }
         } else if (file != null && createIfNotExist) {
             // prepare list with strings for writing
-            resultListForTable = prepareListOfStringsForWriting(initialText, resultText, isTextEncoded);
+            resultListForTable = prepareListOfStringsForWriting(initialText, resultText, action);
 
             String[] fileName = file.getName().split(".");
             String extension = fileName[fileName.length - 1];

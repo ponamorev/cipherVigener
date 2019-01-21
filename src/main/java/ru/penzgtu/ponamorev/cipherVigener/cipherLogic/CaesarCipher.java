@@ -1,45 +1,18 @@
 package ru.penzgtu.ponamorev.cipherVigener.cipherLogic;
 
-import ru.penzgtu.ponamorev.cipherVigener.utils.ConsoleUtils;
-import ru.penzgtu.ponamorev.cipherVigener.utils.FileUtils;
 import ru.penzgtu.ponamorev.cipherVigener.utils.Logger;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-public class CipherCaesarEncode {
+public class CaesarCipher extends CipherImpl {
     private static final Logger logger = new Logger();
+    private final Alphabet[] symbols = Alphabet.values();
 
-    public static void encodeTextFromConsole(Scanner scanner) {
-        String inputString = ConsoleUtils.readFromConsole(scanner);
-        String resultString = encode(inputString, scanner);
-
-        ConsoleUtils.printToConsole(inputString, resultString, true);
-    }
-
-    public static void encodeTextFromFile(File file,
-                                          Scanner scanner,
-                                          boolean createIfNotExist) {
-        List<String> initialList = FileUtils.readFromFile(file);
-        List<String> resultList = new ArrayList<>();
-
-        for (String line : initialList) {
-            String resultLine = encode(line, scanner);
-            resultList.add(resultLine);
-        }
-
-        if (FileUtils.writeResultTableIntoFile(initialList, resultList, file, createIfNotExist, true)) {
-
-        }
-    }
-
-    private static String encode(String initialText,
-                                 Scanner scanner) {
+    @Override
+    public String encode(String initialText,
+                         Scanner scanner) {
         char[] inputChars = initialText.toCharArray();
         char[] resultChars = new char[inputChars.length];
-        Alphabet[] symbols = Alphabet.values();
 
         for (int i = 0; i < inputChars.length; i++) {
             char initialSymbol = inputChars[i];
@@ -75,5 +48,12 @@ public class CipherCaesarEncode {
         }
 
         return String.valueOf(resultChars);
+    }
+
+    @Override
+    public String decode(String initialText) {
+        char[] inputChars = initialText.toCharArray();
+        char[] resultChars = new char[inputChars.length];
+        return "";
     }
 }

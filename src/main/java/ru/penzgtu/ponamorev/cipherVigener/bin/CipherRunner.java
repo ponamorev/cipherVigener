@@ -1,9 +1,7 @@
 package ru.penzgtu.ponamorev.cipherVigener.bin;
 
-import ru.penzgtu.ponamorev.cipherVigener.cipherLogic.CipherCaesarDecode;
-import ru.penzgtu.ponamorev.cipherVigener.cipherLogic.CipherCaesarEncode;
-import ru.penzgtu.ponamorev.cipherVigener.cipherLogic.CipherVigenerDecode;
-import ru.penzgtu.ponamorev.cipherVigener.cipherLogic.CipherVigenerEncode;
+import ru.penzgtu.ponamorev.cipherVigener.cipherLogic.CaesarCipher;
+import ru.penzgtu.ponamorev.cipherVigener.cipherLogic.VigenerCipher;
 import ru.penzgtu.ponamorev.cipherVigener.utils.ErrorHandling;
 
 import java.io.File;
@@ -45,6 +43,8 @@ public class CipherRunner {
 
     private static void startApp() {
         boolean finishWork = false;
+        CaesarCipher caesar = new CaesarCipher();
+        VigenerCipher vigener = new VigenerCipher();
 
         MenuInformationPrinter.printMenu();
 
@@ -55,35 +55,20 @@ public class CipherRunner {
             try {
                 switch (Integer.parseInt(input)) {
                     case 1:
-                        CipherCaesarEncode.encodeTextFromConsole(scanner);
                         break;
                     case 2:
-                        MenuInformationPrinter.printChooseFileName(true);
-                        System.out.println("Remember that file should be *.txt");
-                        System.out.print("Enter file name here >>> ");
-                        String fileName = scanner.nextLine();
-                        MenuInformationPrinter.printQuestionAboutCreatingNonExistingFile();
-                        System.out.print("Enter your answer here >>> ");
-                        boolean createFileIfItIsNotExist = scanner.nextLine().toLowerCase().equals("y");
-                        CipherCaesarEncode.encodeTextFromFile(new File(fileName), scanner, createFileIfItIsNotExist);
                         break;
                     case 3:
-                        CipherCaesarDecode.decodeTextFromConsole();
                         break;
                     case 4:
-                        CipherCaesarDecode.decodeTextFromFile();
                         break;
                     case 5:
-                        CipherVigenerEncode.encodeTextFromConsole();
                         break;
                     case 6:
-                        CipherVigenerEncode.encodeTextFromFile();
                         break;
                     case 7:
-                        CipherVigenerDecode.decodeTextFromConsole();
                         break;
                     case 8:
-                        CipherVigenerDecode.decodeTextFromFile();
                         break;
                     default:
                         MenuInformationPrinter.printWrongNumberSelectingCipher();

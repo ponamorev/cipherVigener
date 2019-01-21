@@ -43,7 +43,7 @@ abstract class OutputUtils {
 
     static List<String> prepareListOfStringsForWriting(List<String> initialText,
                                                        List<String> resultText,
-                                                       boolean encoded) {
+                                                       String action) {
         List<String> result = new ArrayList<>();
         for (int i = 0; i < initialText.size(); i++) {
             String name = "Line " + (i + 1);
@@ -52,7 +52,7 @@ abstract class OutputUtils {
                     StringUtils.repeat(" ", initialText.get(i).length()));
             String initialTextLine;
             String resultTextLine;
-            if (encoded) {
+            if (action.equals("encode")) {
                 initialTextLine = String.format("## %s  ## %s ##", INITIAL_TEXT_NAME, initialText.get(i));
                 resultTextLine = String.format("## %s ## %s ##", CIPHERED_TEXT_NAME, resultText.get(i));
             } else {
