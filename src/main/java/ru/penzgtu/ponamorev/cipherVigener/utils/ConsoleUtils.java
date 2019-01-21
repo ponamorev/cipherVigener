@@ -12,10 +12,11 @@ public class ConsoleUtils extends OutputUtils {
                                          String typeOfCipher) {
         StringBuilder builder = new StringBuilder();
         System.out.print("Enter string for encoding/decoding here >>> ");
-        builder.append(input.nextLine());
+        String inputString = input.nextLine();
+        builder.append(inputString);
         if (typeOfCipher.equals("Vigener")) {
             System.out.print("Enter code word for encoding/decoding here >>> ");
-            builder.append("|").append(input.nextLine());
+            builder.append("#").append(input.nextLine());
         } else {
             System.out.print("Enter key (number) for encoding/decoding by Caesar cipher >>> ");
             int key;
@@ -26,7 +27,8 @@ public class ConsoleUtils extends OutputUtils {
                 logger.warn("Key was set by default!");
                 key = 1;
             }
-            builder.append("|").append(key);
+            input.nextLine();
+            builder.append("#").append(key);
         }
         return builder.toString();
     }

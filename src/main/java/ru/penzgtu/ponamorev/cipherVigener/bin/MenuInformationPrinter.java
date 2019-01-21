@@ -166,6 +166,7 @@ class MenuInformationPrinter {
             logger.error("You entered wrong! Restart the app...");
             return 0;
         }
+        scanner.nextLine();
         return choice;
     }
 }

@@ -9,7 +9,7 @@ abstract class OutputUtils {
     private static final Logger logger = new Logger();
     private static final String INITIAL_TEXT_NAME = "INITIAL TEXT";
     private static final String CIPHERED_TEXT_NAME = "CIPHERED TEXT";
-    private static final String DECODED_TEXT_NAME = "DECODE TEXT";
+    private static final String DECODED_TEXT_NAME = "DECODED TEXT";
 
     static int checkIfBothListsCorrectAndGetMaxLineLength(List<String> firstList,
                                                           List<String> secondList) {
@@ -47,7 +47,6 @@ abstract class OutputUtils {
         List<String> result = new ArrayList<>();
         for (int i = 0; i < initialText.size(); i++) {
             String name = "Line " + (i + 1);
-            String edgeLine = StringUtils.repeat("=", initialText.get(i).length() + 23);
             String initialTextLine;
             String resultTextLine;
 
@@ -58,6 +57,7 @@ abstract class OutputUtils {
             builder = new StringBuilder();
             for (char s : resultText.get(i).toCharArray()) builder.append("|").append(s);
             String formattedResultTextLine = builder.append("|").toString();
+            String edgeLine = StringUtils.repeat("=", formattedInitialTextLine.length() + 23);
 
             if (action.equals("encode")) {
                 initialTextLine = String.format("## %s  ## %s ##", INITIAL_TEXT_NAME, formattedInitialTextLine);

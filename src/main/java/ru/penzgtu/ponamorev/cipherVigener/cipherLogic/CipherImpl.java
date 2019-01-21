@@ -16,7 +16,7 @@ abstract class CipherImpl implements ICipher {
                                         String outputPlace,
                                         File file,
                                         boolean createIfNotExist) {
-        String[] inputStringAndCode = ConsoleUtils.readFromConsole(scanner, type).split("|");
+        String[] inputStringAndCode = ConsoleUtils.readFromConsole(scanner, type).split("#");
         String inputString = inputStringAndCode[0];
         String code = inputStringAndCode[1];
         String resultString = action.equals("encode")
