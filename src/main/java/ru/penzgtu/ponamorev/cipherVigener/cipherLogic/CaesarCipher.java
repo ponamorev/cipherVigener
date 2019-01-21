@@ -30,7 +30,7 @@ public class CaesarCipher extends CipherImpl {
             }
             if (index != -1) {
                 index += key;
-                if (index > alphabetCapacity) {
+                if (index >= alphabetCapacity) {
                     index -= alphabetCapacity;
                 }
                 for (Alphabet symbol : symbols) {
@@ -39,16 +39,8 @@ public class CaesarCipher extends CipherImpl {
                     }
                 }
             } else {
-                logger.warn("You enter some symbols from another alphabet! This symbol will be " +
-                        "encoded as first element of latin alphabet!");
-                logger.warn("It can be follow incorrect decoding!");
-                System.out.print("You can exit from this area and try again from menu. Would you like? (Y/N)" +
-                        " - Enter here >>> ");
-                String yn = scanner.nextLine();
-                if (yn.toLowerCase().equals("y")) {
-                    return null;
-                }
-                logger.warn("You choose case with first element. Symbol was replaced on \'a\'.");
+                logger.warn("Your ciphered text has unsupported symbol - {}", String.valueOf(initialSymbol));
+                logger.warn("It will be decoded as the first symbol of alphabet - \'a\'");
                 resultSymbol = 'a';
             }
 
