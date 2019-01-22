@@ -13,12 +13,13 @@ import java.util.Properties;
 import java.util.Scanner;
 
 public class FilesUtilsTest {
+    private String root = new File(".").getAbsolutePath();
+    private String resourcesFolder = root + "\\src\\main\\resources\\";
 
     @Test
     @Ignore
     public void checkExistingFile() {
-        String absolutePath = new File(".").getAbsolutePath() + "\\src\\main\\resources\\text.txt";
-        List<String> result = FileUtils.readFromFile(new File(absolutePath), "Caesar",
+        List<String> result = FileUtils.readFromFile(new File(resourcesFolder + "text.txt"), "Caesar",
                 new Scanner(new ByteArrayInputStream("2\n".getBytes())));
         Assert.assertNotNull(result);
         for (String line : result) {
