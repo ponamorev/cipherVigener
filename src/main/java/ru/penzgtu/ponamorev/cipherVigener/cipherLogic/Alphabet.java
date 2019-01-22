@@ -62,7 +62,8 @@ public enum Alphabet {
     SIX(58, '6'),
     SEVEN(59, '7'),
     EIGHT(60, '8'),
-    NINE(61, '9');
+    NINE(61, '9'),
+    SPACE(62, ' ');
 
     private final int index;
     private final char value;
