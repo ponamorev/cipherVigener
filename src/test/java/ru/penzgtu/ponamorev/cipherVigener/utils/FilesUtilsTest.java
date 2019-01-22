@@ -1,6 +1,7 @@
 package ru.penzgtu.ponamorev.cipherVigener.utils;
 
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.io.BufferedInputStream;
@@ -13,6 +14,7 @@ import java.util.Scanner;
 public class FilesUtilsTest {
 
     @Test
+    @Ignore
     public void checkExistingFile() {
         String absolutePath = "C:\\Resources\\text.txt";
         List<String> result = FileUtils.readFromFile(new File(absolutePath), "Caesar",
