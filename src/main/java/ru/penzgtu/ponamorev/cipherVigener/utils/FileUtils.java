@@ -43,6 +43,8 @@ public class FileUtils extends OutputUtils {
 
     public static boolean writeResultTableIntoFile(List<String> initialText,
                                                    List<String> resultText,
+                                                   String code,
+                                                   String cipher,
                                                    String action,
                                                    File file,
                                                    boolean createIfNotExist) {
@@ -56,7 +58,7 @@ public class FileUtils extends OutputUtils {
 
         if (isFileCorrectAndNotEmpty(file, "write")) {
             // prepare list with strings for writing
-            resultListForTable = prepareListOfStringsForWriting(initialText, resultText, action);
+            resultListForTable = prepareListOfStringsForWriting(initialText, resultText, code, cipher, action);
 
             if (writeToFile(file, resultListForTable)) {
                 logger.info("You can look result in file - {}", file.getAbsolutePath());
@@ -66,7 +68,7 @@ public class FileUtils extends OutputUtils {
             }
         } else if (file != null && createIfNotExist) {
             // prepare list with strings for writing
-            resultListForTable = prepareListOfStringsForWriting(initialText, resultText, action);
+            resultListForTable = prepareListOfStringsForWriting(initialText, resultText, code, cipher, action);
 
             String[] fileName = file.getName().split("\\.");
             String extension = fileName[fileName.length - 1];

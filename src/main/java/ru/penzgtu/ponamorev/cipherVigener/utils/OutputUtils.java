@@ -12,6 +12,7 @@ abstract class OutputUtils {
     private static final String INITIAL_TEXT_NAME = "INITIAL TEXT";
     private static final String CIPHERED_TEXT_NAME = "CIPHERED TEXT";
     private static final String DECODED_TEXT_NAME = "DECODED TEXT";
+    private static final String KEYWORD = "KEY WORD";
 
     static int checkIfBothListsCorrectAndGetMaxLineLength(List<String> firstList,
                                                           List<String> secondList) {
@@ -20,12 +21,7 @@ abstract class OutputUtils {
         if (firstList != null && secondList != null) {
             if (firstList.size() == secondList.size() && firstList.size() != 0) {
                 for (int i = 0; i < firstList.size(); i++) {
-                    String line = firstList.get(i);
-                    line = line.split("#")[0];
-                    firstList.set(i, line);
-                }
-                for (int i = 0; i < firstList.size(); i++) {
-                    int initTextLineSize = firstList.get(i).length();
+                    int initTextLineSize = firstList.get(i).split("#")[0].length();
                     int ciphTextLineSize = secondList.get(i).length();
                     if (initTextLineSize == ciphTextLineSize && initTextLineSize > maxStringLength) {
                         maxStringLength = initTextLineSize;
@@ -50,6 +46,8 @@ abstract class OutputUtils {
 
     static List<String> prepareListOfStringsForWriting(List<String> initialText,
                                                        List<String> resultText,
+                                                       String code,
+                                                       String cipher,
                                                        String action) {
         List<String> result = new ArrayList<>();
         for (int i = 0; i < initialText.size(); i++) {
@@ -66,11 +64,27 @@ abstract class OutputUtils {
             for (char s : resultText.get(i).toCharArray()) builder.append("|").append(s);
             String formattedResultTextLine = builder.append("|").toString();
             String edgeLine = StringUtils.repeat("=", formattedInitialTextLine.length() + 23);
+            builder = new StringBuilder();
+            if (cipher.equals("Vigener")) {
+                char[] codeChars = code.toCharArray();
+                int codeCharsCount = codeChars.length;
+                int codeElement = 0;
+                int initialTextElementsCount = initialText.get(i).length();
+                int addedElementsCount = 0;
+                builder.append("|");
+                while (addedElementsCount < initialTextElementsCount) {
+                    builder.append(codeChars[codeElement++]).append("|");
+                    if (codeElement == codeCharsCount) codeElement -= codeCharsCount;
+                    addedElementsCount++;
+                }
+                code = builder.toString();
+            }
+            keyWord = cipher.equals("Caesar") ? "d = " + code
+                    : String.format("## %s      ## %s ##", KEYWORD, code);
 
             if (action.equals("encode")) {
                 initialTextLine = String.format("## %s  ## %s ##", INITIAL_TEXT_NAME, formattedInitialTextLine);
                 resultTextLine = String.format("## %s ## %s ##", CIPHERED_TEXT_NAME, formattedResultTextLine);
-                keyWord = "";
             } else {
                 initialTextLine = String.format("## %s ## %s ##", CIPHERED_TEXT_NAME, formattedInitialTextLine);
                 resultTextLine = String.format("## %s  ## %s ##", DECODED_TEXT_NAME, formattedResultTextLine);
@@ -80,9 +94,16 @@ abstract class OutputUtils {
             result.add(name);
             result.add(edgeLine);
             result.add(initialTextLine);
+            if (cipher.equals("Vigener")) {
+                result.add(edgeLine);
+                result.add(keyWord);
+            }
             result.add(edgeLine);
             result.add(resultTextLine);
             result.add(edgeLine);
+            if (cipher.equals("Caesar")) {
+                result.add(keyWord);
+            }
             String emptyString = "";
             result.add(emptyString);
             result.add(emptyString);

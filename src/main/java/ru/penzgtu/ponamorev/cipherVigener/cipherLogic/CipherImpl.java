@@ -29,13 +29,14 @@ abstract class CipherImpl implements ICipher {
         List<String> inputStringAsList = Collections.singletonList(inputString);
         List<String> resultStringAsList = Collections.singletonList(resultString);
         if (outputPlace.equals("file")) {
-            if (FileUtils.writeResultTableIntoFile(inputStringAsList, resultStringAsList, action, file, createIfNotExist)) {
+            if (FileUtils.writeResultTableIntoFile(inputStringAsList, resultStringAsList, code, type,
+                    action, file, createIfNotExist)) {
                 logger.info("File saved successfully.");
             } else {
                 logger.error("File wasn't saved. See log for details.");
             }
         } else {
-            ConsoleUtils.printToConsole(inputString, resultString, action);
+            ConsoleUtils.printToConsole(inputString, resultString, code, type, action);
         }
     }
 
@@ -67,14 +68,14 @@ abstract class CipherImpl implements ICipher {
         }
 
         if (outputPlace.equals("file")) {
-            if (FileUtils.writeResultTableIntoFile(initialList, resultList, action, fileTo, createIfNotExist)) {
+            if (FileUtils.writeResultTableIntoFile(initialList, resultList, code, type, action, fileTo, createIfNotExist)) {
                 logger.info("File saved successfully.");
             } else {
                 logger.error("File wasn't saved. See log for details.");
             }
         } else {
             for (int i = 0; i < initialList.size(); i++) {
-                ConsoleUtils.printToConsole(initialList.get(i), resultList.get(i), action);
+                ConsoleUtils.printToConsole(initialList.get(i), resultList.get(i), code, type, action);
             }
         }
     }

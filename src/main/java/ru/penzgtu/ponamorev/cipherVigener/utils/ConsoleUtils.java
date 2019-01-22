@@ -1,6 +1,6 @@
 package ru.penzgtu.ponamorev.cipherVigener.utils;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,14 +18,13 @@ public class ConsoleUtils extends OutputUtils {
 
     public static void printToConsole(String initialText,
                                       String resultText,
+                                      String code,
+                                      String cipher,
                                       String action) {
         List<String> resultListForTable;
-        List<String> initialTextList = new ArrayList<>();
-        List<String> resultTextList = new ArrayList<>();
+        List<String> initialTextList = Collections.singletonList(initialText);
+        List<String> resultTextList = Collections.singletonList(resultText);
 
-        // set lists
-        initialTextList.add(initialText);
-        resultTextList.add(resultText);
         // check that lists are correct in the next method
         int maxStringLength = checkIfBothListsCorrectAndGetMaxLineLength(initialTextList, resultTextList);
 
@@ -34,7 +33,7 @@ public class ConsoleUtils extends OutputUtils {
             return;
         }
 
-        resultListForTable = prepareListOfStringsForWriting(initialTextList, resultTextList, action);
+        resultListForTable = prepareListOfStringsForWriting(initialTextList, resultTextList, code, cipher, action);
         logger.info("Result:");
         for (String line : resultListForTable) {
             System.out.println(line);
