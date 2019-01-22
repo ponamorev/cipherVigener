@@ -56,6 +56,7 @@ abstract class OutputUtils {
             String name = "Line " + (i + 1);
             String initialTextLine;
             String resultTextLine;
+            String keyWord;
 
             StringBuilder builder = new StringBuilder();
             // change lines to necessary format
@@ -69,6 +70,7 @@ abstract class OutputUtils {
             if (action.equals("encode")) {
                 initialTextLine = String.format("## %s  ## %s ##", INITIAL_TEXT_NAME, formattedInitialTextLine);
                 resultTextLine = String.format("## %s ## %s ##", CIPHERED_TEXT_NAME, formattedResultTextLine);
+                keyWord = "";
             } else {
                 initialTextLine = String.format("## %s ## %s ##", CIPHERED_TEXT_NAME, formattedInitialTextLine);
                 resultTextLine = String.format("## %s  ## %s ##", DECODED_TEXT_NAME, formattedResultTextLine);

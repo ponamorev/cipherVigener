@@ -19,7 +19,7 @@ public class FileUtils extends OutputUtils {
                                             String type,
                                             Scanner scanner) {
         List<String> linesFromFile = null;
-        if (isFileCorrectAndNotEmpty(file)) {
+        if (isFileCorrectAndNotEmpty(file, "read")) {
             try (FileReader fileReader = new FileReader(file);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
                 linesFromFile = new ArrayList<>();
@@ -54,7 +54,7 @@ public class FileUtils extends OutputUtils {
             return false;
         }
 
-        if (isFileCorrectAndNotEmpty(file)) {
+        if (isFileCorrectAndNotEmpty(file, "write")) {
             // prepare list with strings for writing
             resultListForTable = prepareListOfStringsForWriting(initialText, resultText, action);
 
@@ -97,7 +97,8 @@ public class FileUtils extends OutputUtils {
         return true;
     }
 
-    private static boolean isFileCorrectAndNotEmpty(File file) {
+    private static boolean isFileCorrectAndNotEmpty(File file,
+                                                    String action) {
         boolean isFileCorrect = false;
         if (file != null) {
             if (file.exists()) {
@@ -118,7 +119,9 @@ public class FileUtils extends OutputUtils {
                     logger.error("Specified file is not a file. Specify another file!");
                 }
             } else {
-                logger.error("File is not exist. Specify existing file!");
+                if (action.equals("read")) {
+                    logger.error("File is not exist. Specify existing file!");
+                }
             }
         } else {
             logger.error("File is null. You should specify another file!");
