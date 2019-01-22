@@ -25,6 +25,7 @@ public class CipherRunner {
                 do {
                     startApp();
                     MenuInformationPrinter.printFinishAsking();
+                    System.out.print(" >>> ");
                 } while (scanner.nextLine().toLowerCase().equals("y"));
                 break;
             } else if (!input.toLowerCase().equals("exit")) {

@@ -1,4 +1,4 @@
 call mvn clean install
 
 cd target
-java -jar cipherVigener-1.0-SNAPSHOT.jar
+java -jar cipherVigener-1.0.jar
