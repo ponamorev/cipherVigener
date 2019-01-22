@@ -56,7 +56,7 @@ public class FileUtils extends OutputUtils {
             // prepare list with strings for writing
             resultListForTable = prepareListOfStringsForWriting(initialText, resultText, action);
 
-            String[] fileName = file.getName().split(".");
+            String[] fileName = file.getName().split("\\.");
             String extension = fileName[fileName.length - 1];
             if (extension.equals("txt")) {
                 try {
@@ -90,7 +90,7 @@ public class FileUtils extends OutputUtils {
         if (file != null) {
             if (file.exists()) {
                 if (file.isFile()) {
-                    String[] fileName = file.getName().split(".");
+                    String[] fileName = file.getName().split("\\.");
                     String extension = fileName[fileName.length - 1];
                     if (extension.equals("txt")) {
                         if (file.length() != 0) {

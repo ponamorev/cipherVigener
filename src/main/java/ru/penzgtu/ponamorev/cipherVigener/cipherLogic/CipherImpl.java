@@ -20,7 +20,7 @@ abstract class CipherImpl implements ICipher {
         String inputString = inputStringAndCode[0];
         String code = inputStringAndCode[1];
         String resultString = action.equals("encode")
-                ? encode(inputString, code, scanner)
+                ? encode(inputString, code)
                 : decode(inputString, code);
 
         List<String> inputStringAsList = Collections.singletonList(inputString);
@@ -65,7 +65,7 @@ abstract class CipherImpl implements ICipher {
         }
         if (action.equals("encode")) {
             for (String line : initialList) {
-                String resultLine = encode(line, code, scanner);
+                String resultLine = encode(line, code);
                 resultList.add(resultLine);
             }
         } else {

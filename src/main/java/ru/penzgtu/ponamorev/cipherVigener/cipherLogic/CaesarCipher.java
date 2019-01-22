@@ -2,8 +2,6 @@ package ru.penzgtu.ponamorev.cipherVigener.cipherLogic;
 
 import ru.penzgtu.ponamorev.cipherVigener.utils.Logger;
 
-import java.util.Scanner;
-
 public class CaesarCipher extends CipherImpl {
     private static final Logger logger = new Logger();
     private final Alphabet[] symbols = Alphabet.values();
@@ -11,8 +9,7 @@ public class CaesarCipher extends CipherImpl {
 
     @Override
     public String encode(String initialText,
-                         String code,
-                         Scanner scanner) {
+                         String code) {
         char[] inputChars = initialText.toCharArray();
         char[] resultChars = new char[inputChars.length];
         char initialSymbol;
