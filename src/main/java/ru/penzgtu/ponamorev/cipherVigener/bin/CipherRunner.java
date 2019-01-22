@@ -18,7 +18,7 @@ public class CipherRunner {
         do {
             MenuInformationPrinter.printEnterToMenu();
 
-            System.out.print("Enter here: >>> ");
+            System.out.print(" Enter here: >>> ");
             input = scanner.nextLine();
 
             if (input.toLowerCase().equals("start")) {

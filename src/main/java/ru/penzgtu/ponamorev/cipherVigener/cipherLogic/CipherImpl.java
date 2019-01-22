@@ -5,7 +5,10 @@ import ru.penzgtu.ponamorev.cipherVigener.utils.FileUtils;
 import ru.penzgtu.ponamorev.cipherVigener.utils.Logger;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
 abstract class CipherImpl implements ICipher {
     private static final Logger logger = new Logger();
@@ -43,26 +46,14 @@ abstract class CipherImpl implements ICipher {
                                      File fileFrom,
                                      File fileTo,
                                      boolean createIfNotExist) {
-        List<String> initialList = FileUtils.readFromFile(fileFrom);
+        List<String> initialList = FileUtils.readFromFile(fileFrom, type, scanner);
         List<String> resultList = new ArrayList<>();
-        String code;
 
-        // set code word if it is necessary
-        if (type.equals("Vigener")) {
-            System.out.print("Enter code word for encoding/decoding here >>> ");
-            code = scanner.nextLine();
-        } else {
-            System.out.print("Enter key (number) for encoding/decoding Caesar cipher >>> ");
-            int key;
-            try {
-                key = scanner.nextInt();
-            } catch (InputMismatchException ex) {
-                logger.warn("You entered not a number!");
-                logger.warn("Key was set by default!");
-                key = 1;
-            }
-            code = String.valueOf(key);
+        if (initialList == Collections.EMPTY_LIST) {
+            return;
         }
+        String code = initialList.get(0).split("#")[1];
+
         if (action.equals("encode")) {
             for (String line : initialList) {
                 String resultLine = encode(line, code);

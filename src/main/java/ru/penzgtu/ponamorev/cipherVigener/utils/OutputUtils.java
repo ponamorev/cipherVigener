@@ -3,7 +3,9 @@ package ru.penzgtu.ponamorev.cipherVigener.utils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Scanner;
 
 abstract class OutputUtils {
     private static final Logger logger = new Logger();
@@ -17,6 +19,11 @@ abstract class OutputUtils {
 
         if (firstList != null && secondList != null) {
             if (firstList.size() == secondList.size() && firstList.size() != 0) {
+                for (int i = 0; i < firstList.size(); i++) {
+                    String line = firstList.get(i);
+                    line = line.split("#")[0];
+                    firstList.set(i, line);
+                }
                 for (int i = 0; i < firstList.size(); i++) {
                     int initTextLineSize = firstList.get(i).length();
                     int ciphTextLineSize = secondList.get(i).length();
@@ -80,5 +87,28 @@ abstract class OutputUtils {
         }
 
         return result;
+    }
+
+    static String getKeyOrCode(String typeOfCipher,
+                               Scanner input) {
+        String code;
+        if (typeOfCipher.equals("Vigener")) {
+            System.out.print("Enter code word for encoding/decoding here >>> ");
+            code = input.nextLine();
+        } else {
+            System.out.print("Enter key (number) for encoding/decoding by Caesar cipher >>> ");
+            int key;
+            try {
+                key = input.nextInt();
+            } catch (InputMismatchException ex) {
+                logger.warn("You entered not a number!");
+                logger.warn("Key was set by default!");
+                key = 1;
+            }
+            input.nextLine();
+            code = String.valueOf(key);
+        }
+
+        return code;
     }
 }

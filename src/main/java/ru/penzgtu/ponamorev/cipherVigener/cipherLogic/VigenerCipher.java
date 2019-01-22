@@ -12,6 +12,7 @@ public class VigenerCipher extends CipherImpl {
     @Override
     public String encode(String initialText,
                          String code) {
+        initialText = initialText.split("#")[0];
         char[] inputChars = initialText.toCharArray();
         char[] resultChars = new char[inputChars.length];
         char initialSymbol;

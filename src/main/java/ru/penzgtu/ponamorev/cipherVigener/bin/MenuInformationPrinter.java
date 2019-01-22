@@ -50,7 +50,7 @@ class MenuInformationPrinter {
         System.out.println("===     2. Decode text                                                                                    ===");
         System.out.println(SIGNS_EQUALS_WITH_ENTER_BELOW);
 
-        System.out.print("Enter you choice here >>> ");
+        System.out.print(" Enter you choice here >>> ");
         return numberEntering(scanner);
     }
 
@@ -69,7 +69,7 @@ class MenuInformationPrinter {
         System.out.println("===     2. File                                                                                           ===");
         System.out.println(SIGNS_EQUALS_WITH_ENTER_BELOW);
 
-        System.out.print("Enter your choice here >>> ");
+        System.out.print(" Enter your choice here >>> ");
         return numberEntering(scanner);
     }
 
@@ -81,7 +81,7 @@ class MenuInformationPrinter {
         System.out.println("===     2. Vigener                                                                                        ===");
         System.out.println(SIGNS_EQUALS_WITH_ENTER_BELOW);
 
-        System.out.print("Enter your choice here >>> ");
+        System.out.print(" Enter your choice here >>> ");
         return numberEntering(scanner);
     }
 
@@ -110,7 +110,7 @@ class MenuInformationPrinter {
         System.out.println("===     2. File                                                                                           ===");
         System.out.println(SIGNS_EQUALS_WITH_ENTER_BELOW);
 
-        System.out.print("Enter your choice here >>> ");
+        System.out.print(" Enter your choice here >>> ");
         return numberEntering(scanner);
     }
 
@@ -126,11 +126,11 @@ class MenuInformationPrinter {
             insertInput = "decoding";
             insertOutput = "decoded";
         }
-        System.out.println(SIGNS_EQUALS);
+        System.out.println(SIGNS_EQUALS_WITH_ENTER_ABOVE);
         if (inOut.equals("in")) {
             System.out.println("===     Enter file name with absolute path for " + insertInput + " text from it                                      ===");
         } else {
-            System.out.println("===     Enter file name with absolute path for inserting " + insertOutput + " text there                           ===");
+            System.out.println("===     Enter file name with absolute path for inserting " + insertOutput + " text there                              ===");
         }
         System.out.println(SIGNS_EQUALS_WITH_ENTER_BELOW);
 
@@ -139,9 +139,10 @@ class MenuInformationPrinter {
     }
 
     static boolean printQuestionAboutCreatingNonExistingFile(Scanner scanner) {
-        System.out.println(SIGNS_EQUALS);
+        System.out.println(SIGNS_EQUALS_WITH_ENTER_ABOVE);
         System.out.println("===     Create file is it is not exist? (Y/N)                                                             ===");
         System.out.println(SIGNS_EQUALS);
+        System.out.print(" >>> ");
         String answer = scanner.nextLine();
         return answer.toLowerCase().equals("y");
     }

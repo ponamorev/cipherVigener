@@ -1,5 +1,5 @@
 #!/bin/bash
 
-mvn clean install test
+mvn clean install
 cd target
 java -jar cipherVigener-1.0.jar

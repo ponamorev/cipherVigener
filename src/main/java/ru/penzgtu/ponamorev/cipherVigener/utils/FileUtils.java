@@ -1,23 +1,35 @@
 package ru.penzgtu.ponamorev.cipherVigener.utils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
+
 
 public class FileUtils extends OutputUtils {
     private static final Logger logger = new Logger();
 
-    public static List<String> readFromFile(File file) {
+    public static List<String> readFromFile(File file,
+                                            String type,
+                                            Scanner scanner) {
         List<String> linesFromFile = null;
         if (isFileCorrectAndNotEmpty(file)) {
             try (FileReader fileReader = new FileReader(file);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
                 linesFromFile = new ArrayList<>();
+                String key = getKeyOrCode(type, scanner);
                 String oneLine;
+                StringBuilder builderLineWithCode = new StringBuilder();
                 while ((oneLine = bufferedReader.readLine()) != null) {
-                    linesFromFile.add(oneLine);
+                    builderLineWithCode.append(oneLine).append("#").append(key);
+                    linesFromFile.add(builderLineWithCode.toString());
+                    builderLineWithCode = new StringBuilder();
                 }
             } catch (IOException ex) {
                 ErrorHandling.printErrorDescriptionToConsole(ex, "There was an I/O error, during while reading from file.");
@@ -120,6 +132,7 @@ public class FileUtils extends OutputUtils {
         try (FileWriter fileWriter = new FileWriter(file, true)) {
             for (String line : resultList) {
                 fileWriter.write(line);
+                fileWriter.write("\n");
             }
             isWritingFinishedSuccessfully = true;
         } catch (IOException ex) {
